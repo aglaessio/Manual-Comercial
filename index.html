@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual Comercial - Ticketeira</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #34495e;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--dark-color));
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        nav {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 1.5rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--primary-color);
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 0.5rem 0;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--secondary-color);
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            cursor: pointer;
+        }
+        
+        section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        h2 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--light-color);
+            display: flex;
+            align-items: center;
+        }
+        
+        h2 i {
+            margin-right: 0.5rem;
+            color: var(--secondary-color);
+        }
+        
+        h3 {
+            color: var(--dark-color);
+            margin: 1.5rem 0 1rem;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+        }
+        
+        ul, ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        li {
+            margin-bottom: 0.5rem;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        th {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 500;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        tr:hover {
+            background-color: #f1f7fd;
+        }
+        
+        .highlight {
+            background-color: rgba(52, 152, 219, 0.1);
+            padding: 1.5rem;
+            border-radius: 6px;
+            margin: 1.5rem 0;
+            border-left: 4px solid var(--secondary-color);
+        }
+        
+        .tax-info {
+            background-color: rgba(231, 76, 60, 0.1);
+            padding: 1.5rem;
+            border-radius: 6px;
+            margin: 1.5rem 0;
+            border-left: 4px solid var(--accent-color);
+        }
+        
+        .tax-info h3 {
+            color: var(--accent-color);
+            margin-top: 0;
+        }
+        
+        .fee-calculator {
+            background-color: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            border: 1px solid #e9ecef;
+        }
+        
+        .calculator-form {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            max-width: 400px;
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        button {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #2980b9;
+        }
+        
+        .result {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background-color: white;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        
+        .result h4 {
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+        
+        .result-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .result-box {
+            padding: 1rem;
+            border-radius: 6px;
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+        }
+        
+        .result-box h5 {
+            margin-bottom: 0.5rem;
+            color: var(--dark-color);
+            font-size: 1rem;
+        }
+        
+        .result-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .comparison-table {
+            margin-top: 1.5rem;
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .comparison-table th, .comparison-table td {
+            padding: 0.75rem;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        
+        .comparison-table th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .comparison-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-section h3 {
+            color: white;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        .footer-bottom {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                padding: 1rem 0;
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .nav-links li {
+                margin: 0;
+            }
+            
+            .nav-links a {
+                display: block;
+                padding: 0.75rem 2rem;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .calculator-form {
+                grid-template-columns: 1fr;
+            }
+            
+            .result-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Manual Comercial</h1>
+            <p class="subtitle">Titan Pass e Pay</p>
+        </div>
+    </header>
+    
+    <nav>
+        <div class="container nav-container">
+            <div class="logo">
+                <h2 style="color: var(--primary-color); margin: 0;">Ticketeira</h2>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#meia-entrada"><i class="fas fa-ticket-alt"></i> Meia-Entrada</a></li>
+                <li><a href="#pagina-evento"><i class="fas fa-desktop"></i> Página do Evento</a></li>
+                <li><a href="#infraestrutura"><i class="fas fa-server"></i> Infraestrutura</a></li>
+                <li><a href="#ingressos"><i class="fas fa-qrcode"></i> Tipos de Ingressos</a></li>
+                <li><a href="#taxas"><i class="fas fa-money-bill-wave"></i> Taxas</a></li>
+                <li><a href="#chargeback"><i class="fas fa-shield-alt"></i> Segurança</a></li>
+                <li><a href="#repasse"><i class="fas fa-hand-holding-usd"></i> Repasse</a></li>
+                <li><a href="#suporte"><i class="fas fa-headset"></i> Suporte</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <section id="meia-entrada">
+            <h2><i class="fas fa-ticket-alt"></i> Meia-Entrada e Controle de Legitimidade</h2>
+            <ul>
+                <li><strong>Validação obrigatória</strong> de carteira estudantil ou documento comprobatório.</li>
+                <li>Verificação <strong>facial</strong> e cruzamento de dados para impedir uso indevido.</li>
+                <li>Benefício <strong>pessoal e intransferível</strong>.</li>
+                <li>Caso não seja comprovado o direito, será solicitado o complemento do valor para o ingresso integral.</li>
+            </ul>
+        </section>
+        
+        <section id="pagina-evento">
+            <h2><i class="fas fa-desktop"></i> Página do Evento Personalizada</h2>
+            <ul>
+                <li>Página exclusiva do evento, com identidade visual completa.</li>
+                <li>Layout com banners, descrição, mapa do evento, categorias de ingressos e patrocinadores.</li>
+                <li>Possibilidade de incluir vídeos, campanhas e avisos importantes.</li>
+            </ul>
+        </section>
+        
+        <section id="infraestrutura">
+            <h2><i class="fas fa-server"></i> Infraestrutura de Cobrança e Equipamentos</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Valor</th>
+                        <th>Observações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>POS (maquininha)</td>
+                        <td><strong>R$ 120,00 / mês</strong> por equipamento</td>
+                        <td>Entregue configurada e pronta para uso</td>
+                    </tr>
+                    <tr>
+                        <td>Emissão de Cortesia</td>
+                        <td><strong>R$ 1,30 por unidade</strong></td>
+                        <td>Negociável até <strong>R$ 0,50</strong> conforme volume</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+       <!--<section id="ingressos">
+            <h2><i class="fas fa-qrcode"></i> Tipos de Ingressos Disponíveis</h2>
+            <ul>
+                <li><strong>Passaporte 1ª semana</strong></li>
+                <li><strong>Passaporte 2ª semana</strong></li>
+                <li><strong>Passaporte Total para o Evento</strong></li>
+            </ul>
+        </section>-->
+        
+        <section id="taxas">
+            <h2><i class="fas fa-money-bill-wave"></i> Taxas por Forma de Pagamento</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Modalidade</th>
+                        <th>Custo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>PIX</strong></td>
+                        <td><strong>R$ 0,39</strong> por transação</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Débito</strong></td>
+                        <td><strong>R$ 1,25</strong> por transação</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Crédito</strong></td>
+                        <td><strong>R$ 3,60</strong> por transação</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="tax-info">
+                <h3><i class="fas fa-percentage"></i> Taxa de Serviço da Ticketeira (Site e PDV)</h3>
+                <p>Taxa de conveniência/serviço de <strong>13%</strong> aplicada sobre o valor do ingresso.</p>
+                <p>Pode ser:</p>
+                <ul>
+                    <li><strong>Embutida no valor final</strong> (O cliente paga o Valor do Ingresso sem Taxa, a mesma é descontada do valor recebido pelo Produtor) <strong>OU</strong></li>
+                    <li><strong>Acrescida no checkout</strong> (O cliente paga o Valor do Ingresso + Taxa).</li>
+                </ul>
+                <p><em>(A forma de exibição pode ser definida pelo produtor.)</em></p>
+            </div>
+            
+            <div class="fee-calculator">
+                <h3><i class="fas fa-calculator"></i> Calculadora de Taxa de Serviço</h3>
+                <p>Calcule o impacto da taxa de serviço de 13% no valor do ingresso:</p>
+                
+                <div class="calculator-form">
+                    <div class="form-group">
+                        <label for="ticketPrice">Valor Base do Ingresso (R$)</label>
+                        <input type="number" id="ticketPrice" min="0" step="0.01" placeholder="Ex: 50.00" value="50.00">
+                    </div>
+                    
+                    <div class="form-group">
+                        <button id="calculateBtn">Calcular</button>
+                    </div>
+                </div>
+                
+                <div class="result" id="calculationResult" style="display: none;">
+                    <h4>Resultado do Cálculo</h4>
+                    <p>Comparação entre as duas formas de aplicação da taxa de serviço:</p>
+                    
+                    <div class="result-grid">
+                        <div class="result-box">
+                            <h5>Taxa Embutida</h5>
+                            <p class="result-value" id="embutidaCliente">R$ 0,00</p>
+                            <p><strong>Cliente paga:</strong> <span id="embutidaClienteDesc">R$ 0,00</span></p>
+                            <p><strong>Produtor recebe:</strong> <span id="embutidaProdutor">R$ 0,00</span></p>
+                            <p><strong>Taxa da Ticketeira:</strong> <span id="embutidaTaxa">R$ 0,00</span></p>
+                        </div>
+                        
+                        <div class="result-box">
+                            <h5>Taxa Acrescida</h5>
+                            <p class="result-value" id="acrescidaCliente">R$ 0,00</p>
+                            <p><strong>Cliente paga:</strong> <span id="acrescidaClienteDesc">R$ 0,00</span></p>
+                            <p><strong>Produtor recebe:</strong> <span id="acrescidaProdutor">R$ 0,00</span></p>
+                            <p><strong>Taxa da Ticketeira:</strong> <span id="acrescidaTaxa">R$ 0,00</span></p>
+                        </div>
+                    </div>
+                    
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th>Taxa Embutida</th>
+                                <th>Taxa Acrescida</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Valor do Ingresso</td>
+                                <td id="compIngressoEmbutida">R$ 0,00</td>
+                                <td id="compIngressoAcrescida">R$ 0,00</td>
+                            </tr>
+                            <tr>
+                                <td>Taxa de Serviço (13%)</td>
+                                <td id="compTaxaEmbutida">R$ 0,00</td>
+                                <td id="compTaxaAcrescida">R$ 0,00</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Total Pago pelo Cliente</strong></td>
+                                <td id="compTotalEmbutida">R$ 0,00</td>
+                                <td id="compTotalAcrescida">R$ 0,00</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Valor Recebido pelo Produtor</strong></td>
+                                <td id="compRecebidoEmbutida">R$ 0,00</td>
+                                <td id="compRecebidoAcrescida">R$ 0,00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <div class="highlight" style="margin-top: 1.5rem;">
+                        <p><strong>Observação:</strong> As taxas de pagamento (PIX: R$ 0,39, Débito: R$ 1,25, Crédito: R$ 3,60) são cobradas separadamente e não estão incluídas neste cálculo.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="chargeback">
+            <h2><i class="fas fa-shield-alt"></i> Chargeback e Segurança</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Prazo de Repasse</th>
+                        <th>Responsável pelo Chargeback</th>
+                        <th>Autenticação 3DS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>D+15</strong></td>
+                        <td>Plataforma</td>
+                        <td><strong>3DS Ativo</strong> (maior segurança contra fraude)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>D+2</strong></td>
+                        <td>Produtor</td>
+                        <td><strong>Sem 3DS</strong></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Venda Física (PDV)</strong></td>
+                        <td>Produtor</td>
+                        <td><strong>D+0</strong> (repasse imediato)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section id="repasse">
+            <h2><i class="fas fa-hand-holding-usd"></i> Repasse Financeiro</h2>
+            <ul>
+                <li><strong>1 repasse por semana</strong>.</li>
+                <li>Possibilidade de <strong>adiantamento de até 70%</strong> antes do término do evento.</li>
+                <li>Liquidação final de valores em até <strong>5 dias úteis</strong> após o encerramento do evento.</li>
+            </ul>
+        </section>
+        
+        <section id="suporte">
+            <h2><i class="fas fa-headset"></i> Suporte e Operação</h2>
+            <ul>
+                <li><strong>Suporte remoto 24h</strong> durante todo o período do evento.</li>
+                <li>Atendimento aos PDVs conforme horário de funcionamento dos mesmos.</li>
+                <li><strong>Técnico presencial:</strong> cobrado <strong>custo logistico + hospedagem + alimentação + diária técnica</strong>.</li>
+                <li><strong>Internet operacional inclusa</strong> quando houver técnico presencial.</li>
+            </ul>
+        </section>
+    </div>
+    <!--
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Contato</h3>
+                    <p><i class="fas fa-envelope"></i> contato@ticketeira.com.br</p>
+                    <p><i class="fas fa-phone"></i> (11) 1234-5678</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Endereço</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Rua Exemplo, 123</p>
+                    <p>São Paulo - SP, 01234-567</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Horário de Atendimento</h3>
+                    <p>Segunda a Sexta: 9h às 18h</p>
+                    <p>Sábados: 9h às 13h</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 Ticketeira - Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>-->
+    
+    <script>
+        // Menu mobile
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+        
+        // Fechar menu ao clicar em um link
+        const links = document.querySelectorAll('.nav-links a');
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+        
+        // Calculadora de taxas
+        const calculateBtn = document.getElementById('calculateBtn');
+        const calculationResult = document.getElementById('calculationResult');
+        
+        calculateBtn.addEventListener('click', () => {
+            const ticketPrice = parseFloat(document.getElementById('ticketPrice').value);
+            
+            if (isNaN(ticketPrice) || ticketPrice <= 0) {
+                alert('Por favor, insira um valor válido para o ingresso.');
+                return;
+            }
+            
+            // Taxa de serviço da ticketeira (13%)
+            const serviceFeeRate = 0.13;
+            
+            // CÁLCULO TAXA EMBUTIDA
+            // O cliente paga o valor do ingresso sem taxa
+            // A taxa é descontada do valor recebido pelo produtor
+            const valorClienteEmbutida = ticketPrice;
+            const taxaServicoEmbutida = ticketPrice * serviceFeeRate;
+            const valorProdutorEmbutida = ticketPrice - taxaServicoEmbutida;
+            
+            // CÁLCULO TAXA ACRESCIDA
+            // O cliente paga o valor do ingresso + taxa
+            const taxaServicoAcrescida = ticketPrice * serviceFeeRate;
+            const valorClienteAcrescida = ticketPrice + taxaServicoAcrescida;
+            const valorProdutorAcrescida = ticketPrice;
+            
+            // Atualizar os valores na interface
+            document.getElementById('embutidaCliente').textContent = `R$ ${valorClienteEmbutida.toFixed(2)}`;
+            document.getElementById('embutidaClienteDesc').textContent = `R$ ${valorClienteEmbutida.toFixed(2)}`;
+            document.getElementById('embutidaProdutor').textContent = `R$ ${valorProdutorEmbutida.toFixed(2)}`;
+            document.getElementById('embutidaTaxa').textContent = `R$ ${taxaServicoEmbutida.toFixed(2)}`;
+            
+            document.getElementById('acrescidaCliente').textContent = `R$ ${valorClienteAcrescida.toFixed(2)}`;
+            document.getElementById('acrescidaClienteDesc').textContent = `R$ ${valorClienteAcrescida.toFixed(2)}`;
+            document.getElementById('acrescidaProdutor').textContent = `R$ ${valorProdutorAcrescida.toFixed(2)}`;
+            document.getElementById('acrescidaTaxa').textContent = `R$ ${taxaServicoAcrescida.toFixed(2)}`;
+            
+            // Atualizar a tabela de comparação
+            document.getElementById('compIngressoEmbutida').textContent = `R$ ${valorClienteEmbutida.toFixed(2)}`;
+            document.getElementById('compIngressoAcrescida').textContent = `R$ ${ticketPrice.toFixed(2)}`;
+            
+            document.getElementById('compTaxaEmbutida').textContent = `R$ ${taxaServicoEmbutida.toFixed(2)}`;
+            document.getElementById('compTaxaAcrescida').textContent = `R$ ${taxaServicoAcrescida.toFixed(2)}`;
+            
+            document.getElementById('compTotalEmbutida').textContent = `R$ ${valorClienteEmbutida.toFixed(2)}`;
+            document.getElementById('compTotalAcrescida').textContent = `R$ ${valorClienteAcrescida.toFixed(2)}`;
+            
+            document.getElementById('compRecebidoEmbutida').textContent = `R$ ${valorProdutorEmbutida.toFixed(2)}`;
+            document.getElementById('compRecebidoAcrescida').textContent = `R$ ${valorProdutorAcrescida.toFixed(2)}`;
+            
+            calculationResult.style.display = 'block';
+        });
+        
+        // Smooth scrolling para links de navegação
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Calcular automaticamente ao carregar a página
+        window.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('calculateBtn').click();
+        });
+    </script>
+</body>
+</html>
